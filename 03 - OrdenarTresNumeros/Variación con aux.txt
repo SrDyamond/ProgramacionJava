@@ -1,0 +1,29 @@
+//Introducir tres números y que estos salga siempre ordenados de mayor a menos.
+package ordenarTresNumeros;
+import java.util.Scanner;
+public class ordenarTresNumeros {
+	public static void main (String[]args) {
+	Scanner entrada = new Scanner (System.in);
+	int n1, n2, n3;
+	System.out.print("Primer número? ");
+	n1 = entrada.nextInt();
+	System.out.print("Segundo número? ");
+	n2 = entrada.nextInt();
+	System.out.print("Tercer número? ");
+	n3 = entrada.nextInt();
+	if (n1 < n2) {
+		aux = n1;
+		ni = n2;
+		n2 = aux;
+	}
+	if (n1 > n3){
+		aux = n1;
+		n1 = n3;
+		n3= aux;
+	}
+	if (n2 > n3){
+		aux=n2;
+		n2=n3;
+		n3=aux;
+	}
+	System.out.println(n1+", "+n2+", "+n3);

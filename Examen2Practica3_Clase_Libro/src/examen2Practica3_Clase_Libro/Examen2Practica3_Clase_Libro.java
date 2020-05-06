@@ -45,7 +45,8 @@ public class Examen2Practica3_Clase_Libro {
 	}
 	
 	//ALTAS
-	public static void altas(Scanner e,libro l[]) {
+	public static void altas(Scanner e,libro l[]) {/////////////O CODIGO COMENTADO NESTE METODO\\\\\\\\\\\\\\\\
+												   ////////////E A INSERCION DE ALTAS POR TECLADO\\\\\\\\\\\\\\\
 //		int i=0;
 //		String isbn = "", titulo = "", autor = "", editorial = "";
 //		float precio = 0;
@@ -76,7 +77,7 @@ public class Examen2Practica3_Clase_Libro {
 	public static void visualizar(libro l[]) {
 		int i=0;
 		for(i=0;i<l.length;i++)
-			System.out.println(l[i].toString());
+			System.out.println(l[i].toString());//visualizo co metodo toString da clase libro
 	}
 	//ORDENACION
 	public static void ordenar(libro l[],int op) {
@@ -118,7 +119,7 @@ public class Examen2Practica3_Clase_Libro {
 	public static void main (String []args) {
 		Scanner entrada=new Scanner(System.in);
 		int opcion=0,opcion2=0;
-		libro l[]=new libro[2];
+		libro l[]=new libro[2];//instancio o objeto no main para poder usalo en todos os metodos que queira
 		do {
 			opcion=menu(entrada);
 			switch(opcion) {

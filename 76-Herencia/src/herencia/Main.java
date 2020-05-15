@@ -2,9 +2,9 @@ package herencia;
 
 import java.util.Scanner;
 
-import clasePersonaMascota.DueñosMascotas;
-import clasePersonaMascota.Mascota;
-import clasePersonaMascota.Persona;
+import herencia.Persona;
+import herencia.Alumno;
+import herencia.Profesor;
 
 public class Main {
 ///////////////////////MENU/////////////
@@ -32,6 +32,7 @@ public class Main {
 			dni = " ";
 			System.out.println("Inserte o DNI do alumno");
 			dni = e.nextLine();
+//			Alumno.setDni(dni);
 			System.out.println("Inserte o Nome do alumno");
 			nombre = e.nextLine();
 			System.out.println("Inserte o Primerio Apelido");
@@ -44,7 +45,6 @@ public class Main {
 			cursoMatr = e.nextLine();
 			System.out.println("Inserte o numero do Alumno");
 			numeroAlu = e.nextInt();
-			Alumno.setDni(dni);
 			System.out.println("Novo alumno?Prema *** para finalizar");
 			dni = e.nextLine();
 			

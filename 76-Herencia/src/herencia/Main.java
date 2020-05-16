@@ -33,6 +33,7 @@ public class Main {
 			System.out.println("Inserte o DNI do alumno");
 			dni = e.nextLine();
 //			Alumno.setDni(dni);
+			//Non funciona porque me pon que ten que ser static
 			System.out.println("Inserte o Nome do alumno");
 			nombre = e.nextLine();
 			System.out.println("Inserte o Primerio Apelido");

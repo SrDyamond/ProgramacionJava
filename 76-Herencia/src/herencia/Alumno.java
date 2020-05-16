@@ -1,6 +1,7 @@
 package herencia;
 
 public class Alumno extends Persona{
+	//atributos
 	private int numeroAlumno;
 	private String cursoMatriculado;
 	
@@ -26,7 +27,6 @@ public class Alumno extends Persona{
 		this.cursoMatriculado=_cursoMatriculado;
 	}
 
-	@Override
 	public String toString() {
 		return "Alumno [numeroAlumno=" + numeroAlumno + ", cursoMatriculado=" + cursoMatriculado + ", dni=" + dni
 				+ ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", edad=" + edad

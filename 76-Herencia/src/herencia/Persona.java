@@ -8,7 +8,7 @@ public class Persona {
 	String apellido2;
 	int edad;
 	
-	//constructor
+	//constructor//
 	Persona() {
 		this.dni="";
 		this.nombre="";

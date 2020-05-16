@@ -1,7 +1,7 @@
 package herencia;
 
 public class Alumno extends Persona{
-	//atributos
+	//atributos//
 	private int numeroAlumno;
 	private String cursoMatriculado;
 	

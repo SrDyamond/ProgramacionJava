@@ -1,7 +1,7 @@
 package herencia;
 
 public class Persona {
-	//atributos
+	//atributos//
 	String dni;
 	String nombre;
 	String apellido1;

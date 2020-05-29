@@ -32,8 +32,8 @@ public class herenciamain {
 			dni = " ";
 			System.out.println("Inserte o DNI do alumno");
 			dni = e.nextLine();
-//			Alumno.setDni(dni);
-			//Non funciona porque me pon que ten que ser static//
+			Alumno.setDni(dni);
+			
 			System.out.println("Inserte o Nome do alumno");
 			nombre = e.nextLine();
 			System.out.println("Inserte o Primerio Apelido");
@@ -59,6 +59,7 @@ public class herenciamain {
 	}
 
 	public static void main(String[] args) {
+		
 		Scanner entrada = new Scanner(System.in);
 		int opcion = 0;
 

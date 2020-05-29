@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class SanchezRodriguezDyango_Examen1 {
 
 	static Scanner entrada = new Scanner(System.in);
-	//static final String ruta = "C:\\Datos\\";
-	static final String ruta = "C:\\Users\\dyang\\eclipse-workspace\\Ficheros\\";
+	static final String ruta = "C:\\Datos\\";
+	//static final String ruta = "C:\\Users\\dyang\\eclipse-workspace\\Ficheros\\";
 
 ///////////////////////////////// MENU\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	static int menu(Scanner e) {

@@ -14,6 +14,7 @@ public class Libro {
 	    private static final int LONG_AUTOR = 25;
 	    
 	    public static final int LONGITUD = LONG_INT + PREF + LONG_ISBN + PREF + LONG_TITULO + PREF + LONG_AUTOR + LONG_INT + LONG_FLOAT;
+	  
 	    
 	    private int numero;
 	    private String isbn; // 13
@@ -24,18 +25,18 @@ public class Libro {
 	    
 	    Libro() {
 	        this.numero = 0;
-	        this.isbn = "ISBN VACIO".trim();
-	        this.titulo = "TITULO VACIO".trim();
-	        this.autor = "AUTOR VACIO".trim();
+	        this.isbn = "ISBN VACIO";
+	        this.titulo = "TITULO VACIO";
+	        this.autor = "AUTOR VACIO";
 	        this.edicion = 0;
 	        this.precio = 0;
 	    }
 	    
 	    Libro(int numero, String isbn, String titulo, String autor, int edicion, float precio) {
 	        this.numero = numero;
-	        this.isbn = isbn.trim();
-	        this.titulo = titulo.trim();
-	        this.autor = autor.trim();
+	        this.isbn = isbn;
+	        this.titulo = titulo;
+	        this.autor = autor;
 	        this.edicion = edicion;
 	        this.precio = precio;
 	    }
@@ -53,7 +54,7 @@ public class Libro {
 	    }
 
 	    public void setIsbn(String isbn) {
-	        this.isbn = isbn.trim();
+	        this.isbn = isbn;
 	    }
 
 	    public String getTitulo() {
@@ -61,7 +62,7 @@ public class Libro {
 	    }
 
 	    public void setTitulo(String titulo) {
-	        this.titulo = titulo.trim();
+	        this.titulo = titulo;
 	    }
 
 	    public String getAutor() {
@@ -69,7 +70,7 @@ public class Libro {
 	    }
 
 	    public void setAutor(String autor) {
-	        this.autor = autor.trim();
+	        this.autor = autor;
 	    }
 
 	    public int getEdicion() {
@@ -108,8 +109,7 @@ public class Libro {
 	            f.writeInt(this.edicion);
 	            f.writeFloat(this.precio);
 	        } catch(IOException ioe) {
-	            // ioe.printStackTrace();
-	            System.out.println("# ERROR: Fallo al guardar en el archivo.");
+	            System.out.println("# ERROR: Fallo o gardar no archivo de texto.");
 	        }
 	    }
 	    
@@ -117,7 +117,6 @@ public class Libro {
 	        boolean finArchivo = false;
 	        
 	        try {
-	            // leemos un registro completo
 	            this.numero = f.readInt();
 	            this.isbn = f.readUTF();
 	            this.titulo = f.readUTF();
@@ -127,8 +126,7 @@ public class Libro {
 	        } catch(EOFException eofe) {
 	            finArchivo = true;
 	        } catch(IOException ioe) {
-	            // ioe.printStackTrace();
-	            System.out.println("# ERROR: Fallo al leer el archivo.");
+	            System.out.println("# ERROR: Fallo o leer o archivo de texto.");
 	        }
 	        
 	        return finArchivo;

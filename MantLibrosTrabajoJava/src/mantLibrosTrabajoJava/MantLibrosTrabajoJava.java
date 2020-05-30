@@ -15,12 +15,12 @@ public class MantLibrosTrabajoJava {
 		System.out.println();
 		System.out.println(" ------- MENU -------");
 		System.out.println(" 1:Altas");
-		System.out.println(" 2:Bajas");
-		System.out.println(" 3:Modificaciones");
+		System.out.println(" 2:Baixas");
+		System.out.println(" 3:Modificacions");
 		System.out.println(" 4:Listados");
 		System.out.println(" 5:Fin");
 		System.out.println();
-		System.out.println(" Seleccione unha opcion entre 1 e 5");
+		System.out.println(" Selecciona unha opcion entre 1 e 5");
 		System.out.println();
 		do {
 			System.out.println("Prema a opcion elexida");
@@ -38,6 +38,7 @@ public class MantLibrosTrabajoJava {
 	}
 
 	////////////// COMPROBACIONS////////////////////
+	//comprobo que sea un titulo valido
 	public static String comprobarAutorTitulo(Scanner s, String frase, int limite) {
 		String salida = "";
 		do {
@@ -46,7 +47,7 @@ public class MantLibrosTrabajoJava {
 		} while (salida.length() > limite);
 		return salida;
 	}
-
+	//comprobo que sea un ISBN valido
 	public static String comprobarISBN(Scanner s, String frase, int limite) {
 		String salida = "";
 		do {
@@ -55,7 +56,7 @@ public class MantLibrosTrabajoJava {
 		} while (salida.length() != limite);
 		return salida;
 	}
-
+	//comprobo a edad e a edicion co mesmo metodo xa que son ints
 	public static int comprobarInt(Scanner s, String frase) {
 		String entradaString = "";
 		int in = 0;
@@ -67,12 +68,12 @@ public class MantLibrosTrabajoJava {
 				in = Integer.parseInt(entradaString);
 				esInt = true;
 			} catch (NumberFormatException nfe) {
-				System.out.println("# ERROR: No es un Integer.");
+				System.out.println("#ERROR# Non e un Integer #ERROR#");
 			}
 		} while (!esInt);
 		return in;
 	}
-
+	//comprobo que sea float o formato do precio
 	public static float comprobarFloat(Scanner s, String frase) {
 		String entradaString = "";
 		float in = 0;
@@ -84,12 +85,12 @@ public class MantLibrosTrabajoJava {
 				in = Float.parseFloat(entradaString);
 				esDouble = true;
 			} catch (NumberFormatException nfe) {
-				System.out.println("# ERROR: No es un Float.");
+				System.out.println("#ERROR Non e un float  #ERROR#");
 			}
 		} while (!esDouble);
 		return in;
 	}
-
+	//comprobo que sea S ou N
 	public static char comprobarSiNo(Scanner s, String frase) {
 		char in = ' ';
 		do {
@@ -113,64 +114,65 @@ public class MantLibrosTrabajoJava {
 		System.out.println("\n-----ALTAS-----");
 
 		try {
+			//abrimos o archivo con permisos de lectura e escritura
 			RandomAccessFile archivo = new RandomAccessFile(fullDir, "rw");
 			do {
 
-				numero = comprobarInt(s, "Introduce el número del libro");
+				numero = comprobarInt(s, "Introduce o numero do libro");
 
 				posicionInicial = numero * Libro.LONGITUD;
+				//seek usado para mover o cursor a posicion que deseo,neste caso a posicion inicial
 				archivo.seek(posicionInicial);
 				libro.leerDeArchivo(archivo);
-
-				// comprobamos si la posición dada está llena o no
+				
 				if (libro.getNumero() != 0 && posicionInicial < archivo.length()) {
-					System.out.println("# ERROR: Este código ya está lleno en el archivo.");
+					//comprobamos si a posicion inicial ten xa un libro
+					System.out.println("# ERROR: Este numero de libro xa existe.");
 					continue;
 				} else {
-					isbn = comprobarISBN(s, "Introduce el ISBN", 13);
-					titulo = comprobarAutorTitulo(s, "Introduce el título", 25);
-					autor = comprobarAutorTitulo(s, "Introduce el autor", 25);
-					edicion = comprobarInt(s, "Introduce el número de la edición");
-					precio = comprobarFloat(s, "Introduce el precio");
-
+					//comprobo todas as restriccions con metodos
+					isbn = comprobarISBN(s, "ISBN", 13);
+					titulo = comprobarAutorTitulo(s, "Titulo", 25);
+					autor = comprobarAutorTitulo(s, "Autor", 25);
+					edicion = comprobarInt(s, "Edicion");
+					precio = comprobarFloat(s, "Precio");
+					//instancio Libro 
 					Libro l = new Libro(numero, isbn, titulo, autor, edicion, precio);
 
-					System.out.println("# Se va a guardar el siguiente libro:");
-					System.out.println("# " + visualizarLibro(l));
+					System.out.println("Vaise gardar o libro:");
+					System.out.println(" " + visualizarLibro(l));
 					do {
-						confirmar = comprobarSiNo(s, "Desea guardar este libro?");
+						confirmar = comprobarSiNo(s, "Quere gardar este libro?");
 					} while (confirmar != 'S' && confirmar != 'N');
 
 					if (confirmar == 'S') {
-						// Si la nueva posición a guardar es mayor a la ultima del archivo, me
-						// posiciono al final
+						
 						if (posicionInicial > archivo.length())
+							// Si a posicion a  gardar e mayor que a ultima do archivo posicionome o final
 							archivo.seek(archivo.length());
 
-						// Escribo personas vacías hasta llegar a la posición en la que voy a guardar
-						// mi nueva libro
 						while (posicionInicial > archivo.length()) {
+							//escribo campos vacios hasta chegar o numero que me dou o usuario
 							(new Libro()).escribirArchivo(archivo);
 						}
 
-						// me situo en la posición dada (donde voy a guardar)
+						//situamonos na posicion 
 						archivo.seek(posicionInicial);
 
-						// guardamos el libro en su posición correspondiente
+						//gardamos o libro
 						l.escribirArchivo(archivo);
-						System.out.println("# Libro guardado");
+						System.out.println("Libro gardador");
 					}
 				}
-
+				//usamos o metodo comprobar sino
 				do {
-					continuar = comprobarSiNo(s, "Desea continuar introduciendo altas?");
+					continuar = comprobarSiNo(s, "Quere seguir a�adindo libros?");
 				} while (continuar != 'S' && continuar != 'N');
 
 			} while (continuar == 'S');
 			archivo.close();
 		} catch (IOException ioe) {
-			// ioe.printStackTrace();
-			System.out.println("# ERROR: Fallo al acceder al archivo.");
+			System.out.println("# ERROR: Fallo o acceder o archivo de texto.");
 		}
 	}
 
@@ -182,46 +184,45 @@ public class MantLibrosTrabajoJava {
 		char continuar = 'S';
 		int numero = 0, posicionInicial = 0;
 
-		System.out.println("\n-----BAJAS-----");
+		System.out.println("\n-----BAIXAS-----");
 
 		try {
 			RandomAccessFile archivo = new RandomAccessFile(fullDir, "rw");
 			do {
-				numero = comprobarInt(s, "Introduce el número del libro");
+				numero = comprobarInt(s, "Introduce o numero do libro");
 				posicionInicial = numero * Libro.LONGITUD;
 				archivo.seek(posicionInicial);
 				libro.leerDeArchivo(archivo);
 
-				// comprobamos si la posición dada está llena o no
+				//comprobamos si a posicion inicial ten xa un libro
 				if (libro.getNumero() != 0 && posicionInicial < archivo.length()) {
-					System.out.println("# Se va a borrar el siguiente libro:");
-					System.out.println("# " + visualizarLibro(libro));
+					System.out.println("Vaise borrar o siguiente libro:");
+					System.out.println(" " + visualizarLibro(libro));
 					do {
-						confirmar = comprobarSiNo(s, "Desea borrar este libro?");
+						confirmar = comprobarSiNo(s, "Quere borrar este libro?");
 					} while (confirmar != 'S' && confirmar != 'N');
 
 					if (confirmar == 'S') {
-						// me situo en la posición dada (donde voy a borrar)
+						// situome na posicion donde vou borrar
 						archivo.seek(posicionInicial);
 
-						// guardamos un libro vacío (borramos) en la posición dada
+						// gardamos campos vacios na linea 
 						(new Libro()).escribirArchivo(archivo);
 						System.out.println("# Libro borrado");
 					}
 				} else {
-					System.out.println("# ERROR: Este código ya está vacío en el archivo.");
+					System.out.println("# ERROR: Este numero de libro xa esta vacio no archivo de texto.");
 					continue;
 				}
 
 				do {
-					continuar = comprobarSiNo(s, "Desea continuar borrando libros?");
+					continuar = comprobarSiNo(s, "Quere borrar mais libros?");
 				} while (continuar != 'S' && continuar != 'N');
 
 			} while (continuar == 'S');
 			archivo.close();
 		} catch (IOException ioe) {
-			// ioe.printStackTrace();
-			System.out.println("# ERROR: Fallo al acceder al archivo.");
+			System.out.println("# ERROR: Fallo o acceder o archivo de texto.");
 		}
 	}
 
@@ -243,58 +244,57 @@ public class MantLibrosTrabajoJava {
 			RandomAccessFile archivo = new RandomAccessFile(fullDir, "rw");
 			do {
 
-				numero = comprobarInt(s, "Introduce el número del libro");
+				numero = comprobarInt(s, "Introduce o numero do libro");
 
 				posicionInicial = numero * Libro.LONGITUD;
 				archivo.seek(posicionInicial);
 				libro.leerDeArchivo(archivo);
 
-				// comprobamos si la posición dada está llena o no
+				//comprobamos si a posicion inicial ten xa un libro
 				if (libro.getNumero() != 0 && posicionInicial < archivo.length()) {
 
-					System.out.println("# Se va a editar el siguiente libro:");
+					System.out.println("# Vaise editar o seguinte libro:");
 					System.out.println("# " + visualizarLibro(libro));
 					do {
-						confirmarEditar = comprobarSiNo(s, "Desea editar este libro?");
+						confirmarEditar = comprobarSiNo(s, "Quere editar este libro?");
 					} while (confirmarEditar != 'S' && confirmarEditar != 'N');
 
 					if (confirmarEditar == 'S') {
-						isbn = comprobarISBN(s, "Introduce el nuevo ISBN", 13);
-						titulo = comprobarAutorTitulo(s, "Introduce el nuevo título", 25);
-						autor = comprobarAutorTitulo(s, "Introduce el nuevo autor", 25);
-						edicion = comprobarInt(s, "Introduce el nyevo número de la edición");
-						precio = comprobarFloat(s, "Introduce el nuevo precio");
+						isbn = comprobarISBN(s, "ISBN", 13);
+						titulo = comprobarAutorTitulo(s, "Titulo", 25);
+						autor = comprobarAutorTitulo(s, "Autor", 25);
+						edicion = comprobarInt(s, "Edicion");
+						precio = comprobarFloat(s, "Precio");
 
 						Libro l = new Libro(numero, isbn, titulo, autor, edicion, precio);
 
-						System.out.println("# Se va a guardar el siguiente libro editado:");
+						System.out.println("# Vaise gardar o seguinte libro:");
 						System.out.println("# " + visualizarLibro(l));
 						do {
-							confirmar = comprobarSiNo(s, "Desea guardar estes cambios?");
+							confirmar = comprobarSiNo(s, "Desea gardar estes cambios?");
 						} while (confirmar != 'S' && confirmar != 'N');
 
 						if (confirmar == 'S') {
-							// me situo en la posición dada (donde voy a guardar)
+							// situome na posicion 
 							archivo.seek(posicionInicial);
 
-							// guardamos el libro en su posición correspondiente
+							// guardamolo na posicion
 							l.escribirArchivo(archivo);
-							System.out.println("# Libro guardado");
+							System.out.println("# Libro gardado");
 						}
 					}
 				} else {
-					System.out.println("# ERROR: Este código está vacío en el archivo.");
+					System.out.println("# ERROR: Este numero de libro xa esta vacio no archivo de texto.");
 					continue;
 				}
 
 				do {
-					continuar = comprobarSiNo(s, "Desea continuar modificando libros?");
+					continuar = comprobarSiNo(s, "Quere continuar modificando libros?");
 				} while (continuar != 'S' && continuar != 'N');
 			} while (continuar == 'S');
 			archivo.close();
 		} catch (IOException ioe) {
-			// ioe.printStackTrace();
-			System.out.println("# ERROR: Fallo al acceder al archivo.");
+			System.out.println("# ERROR: Fallo o acceder o archivo de texto.");
 		}
 	}
 
